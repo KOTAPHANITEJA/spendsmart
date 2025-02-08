@@ -27,6 +27,7 @@ const MonthlyReport = () => {
         value={month}
         onChange={(e) => setMonth(e.target.value)}
         required
+        className="medium-input"
       />
       <input
         type="number"
@@ -34,8 +35,9 @@ const MonthlyReport = () => {
         value={year}
         onChange={(e) => setYear(e.target.value)}
         required
+        className="medium-input"
       />
-      <button onClick={generateReport}>Generate Report</button>
+      <button onClick={generateReport} className="medium-button">Generate Report</button>
       <ul>
         {filteredExpenses.map((expense, index) => (
           <li key={index}>

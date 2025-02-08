@@ -23,11 +23,15 @@ form {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  align-items: center; /* Center the form elements */
+  max-width: 350px; /* Adjust the width of the form */
+  margin: 0 auto; /* Center the form on the page */
 }
 
 input, select, button {
   padding: 10px;
   font-size: 16px;
+  width: 100%; /* Make the input, select, and button elements take the full width of the form */
 }
 
 ul {
@@ -55,6 +59,24 @@ button {
   width: 100px; /* Adjust the width to make the button smaller */
 }
 
+.medium-button {
+  padding: 8px 15px;
+  font-size: 16px;
+  width: auto; /* Adjust the width to make the button medium-sized */
+}
+
+.medium-input {
+  padding: 8px 15px;
+  font-size: 16px;
+  width: auto; /* Adjust the width to make the input medium-sized */
+}
+
+.dashboard-button {
+  padding: 5px 10px;
+  font-size: 14px;
+  width: auto; /* Adjust the width to make the button smaller */
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -69,4 +91,48 @@ th, td {
 
 th {
   background-color: #f2f2f2;
+}
+
+.dashboard-container {
+  padding: 20px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.dashboard-header h2 {
+  margin: 0;
+}
+
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dashboard-content > div {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.expense-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.expense-item {
+  font-size: 18px; /* Adjust the font size to make it bigger */
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }

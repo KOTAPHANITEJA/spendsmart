@@ -12,11 +12,22 @@ const Dashboard = () => {
   };
 
   return (
-    <div>
-      <ExpenseForm />
-      <ExpenseList />
-      <MonthlyReport />
-      <button onClick={handleSubmit}>Submit</button>
+    <div className="dashboard-container">
+      <div className="dashboard-header">
+        <h2>Dashboard</h2>
+        <button onClick={handleSubmit} className="dashboard-button">submit</button>
+      </div>
+      <div className="dashboard-content">
+        <div>
+          <ExpenseForm />
+        </div>
+        <div>
+          <ExpenseList />
+        </div>
+        <div>
+          <MonthlyReport />
+        </div>
+      </div>
     </div>
   );
 };
