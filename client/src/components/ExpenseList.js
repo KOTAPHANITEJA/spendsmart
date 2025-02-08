@@ -8,7 +8,7 @@ const ExpenseList = () => {
     <ul className="expense-list">
       {expenses.map((expense, index) => (
         <li key={index} className="expense-item">
-          {expense.description}: ${expense.amount} - {expense.category}
+          {expense.description}: ₹{expense.amount} - {expense.category}
           <button onClick={() => editExpense(index)} className="medium-button">Edit</button>
           <button onClick={() => deleteExpense(index)} className="medium-button">Delete</button>
         </li>

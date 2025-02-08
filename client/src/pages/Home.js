@@ -19,6 +19,8 @@ const Home = () => {
     'Food', 'Transport', 'Books', 'Clothing', 'Electronics', 'Health', 'Beauty', 'Sports', 'Education', 'Others'
   ];
 
+  const overLimitCategories = categories.filter(category => getRemainingAmount(category) < 0);
+
   return (
     <div>
       <header>
@@ -56,7 +58,7 @@ const Home = () => {
             {expenses.map((expense, index) => (
               <tr key={index}>
                 <td>{expense.description}</td>
-                <td>${expense.amount}</td>
+                <td>₹{expense.amount}</td>
                 <td>{expense.category}</td>
                 <td>{new Date(expense.date).toLocaleDateString()}</td>
               </tr>
@@ -75,11 +77,21 @@ const Home = () => {
             {categories.map((category, index) => (
               <tr key={index}>
                 <td>{category}</td>
-                <td>${getRemainingAmount(category)}</td>
+                <td>₹{getRemainingAmount(category)}</td>
               </tr>
             ))}
           </tbody>
         </table>
+        {overLimitCategories.length > 0 && (
+          <div className="over-limit-message">
+            <h4>Categories that have crossed their limits:</h4>
+            <ul>
+              {overLimitCategories.map((category, index) => (
+                <li key={index}>{category} has exceeded its limit by ₹{Math.abs(getRemainingAmount(category))}</li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
