@@ -41,7 +41,7 @@ const MonthlyReport = () => {
       <ul>
         {filteredExpenses.map((expense, index) => (
           <li key={index}>
-            {expense.description}: ${expense.amount} - {expense.category} on {new Date(expense.date).toLocaleDateString()}
+            {expense.description}: ₹{expense.amount} - {expense.category} on {new Date(expense.date).toLocaleDateString()}
           </li>
         ))}
       </ul>
