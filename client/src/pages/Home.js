@@ -1,18 +1,28 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ExpenseContext } from '../context/ExpenseContext';
+import { Pie } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
+
+ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 const Home = () => {
-  const { expenses, getRemainingAmount, income, setIncome } = useContext(ExpenseContext);
+  const { expenses, getRemainingAmount, income, setIncome, emi, setEmi } = useContext(ExpenseContext);
   const [inputIncome, setInputIncome] = useState(income);
+  const [inputEmi, setInputEmi] = useState(emi);
 
   const handleIncomeChange = (e) => {
     setInputIncome(e.target.value);
   };
 
+  const handleEmiChange = (e) => {
+    setInputEmi(e.target.value);
+  };
+
   const handleIncomeSubmit = (e) => {
     e.preventDefault();
     setIncome(parseFloat(inputIncome));
+    setEmi(parseFloat(inputEmi));
   };
 
   const categories = [
@@ -20,6 +30,61 @@ const Home = () => {
   ];
 
   const overLimitCategories = categories.filter(category => getRemainingAmount(category) < 0);
+
+  const expenseData = categories.map(category => {
+    const totalSpent = expenses
+      .filter(expense => expense.category === category)
+      .reduce((total, expense) => total + expense.amount, 0);
+    return totalSpent;
+  });
+
+  const data = {
+    labels: categories,
+    datasets: [
+      {
+        label: 'Expenses',
+        data: expenseData,
+        backgroundColor: [
+          'rgba(255, 98, 132, 0.6)',
+          'rgba(54, 162, 235, 0.6)',
+          'rgba(255, 206, 86, 0.6)',
+          'rgba(75, 192, 192, 0.6)',
+          'rgba(153, 102, 255, 0.6)',
+          'rgba(255, 159, 64, 0.6)',
+          'rgba(199, 199, 199, 0.6)',
+          'rgba(83, 102, 255, 0.6)',
+          'rgba(255, 99, 132, 0.6)',
+          'rgba(54, 162, 235, 0.6)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(199, 199, 199, 1)',
+          'rgba(83, 102, 255, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)'
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Expenses by Category',
+      },
+    },
+  };
 
   return (
     <div>
@@ -42,7 +107,11 @@ const Home = () => {
             Enter your income:
             <input type="number" value={inputIncome} onChange={handleIncomeChange} required />
           </label>
-          <button type="submit" className="small-button">Set Income</button>
+          <label>
+            Enter your EMI:
+            <input type="number" value={inputEmi} onChange={handleEmiChange} required />
+          </label>
+          <button type="submit" className="small-button">Set Income and EMI</button>
         </form>
         <h3>Expenditure Table</h3>
         <table>
@@ -92,6 +161,10 @@ const Home = () => {
             </ul>
           </div>
         )}
+        <h3>Expenses Visualization</h3>
+        <div className="chart-container">
+          <Pie data={data} options={options} />
+        </div>
       </div>
     </div>
   );

@@ -144,3 +144,9 @@ th {
   padding: 10px;
   border-radius: 5px;
 }
+
+.chart-container {
+  width: 400px; /* Adjust the width of the chart container */
+  height: 400px; /* Adjust the height of the chart container */
+  margin: 0 auto; /* Center the chart container */
+}

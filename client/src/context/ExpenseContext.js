@@ -5,23 +5,25 @@ export const ExpenseContext = createContext();
 const ExpenseProvider = ({ children }) => {
   const [expenses, setExpenses] = useState([]);
   const [income, setIncome] = useState(0);
+  const [emi, setEmi] = useState(0);
 
-  const calculateCategoryLimits = (income) => {
+  const calculateCategoryLimits = (income, emi) => {
+    const remainingIncome = income - emi;
     return {
-      Food: income * 0.1,
-      Transport: income * 0.05,
-      Books: income * 0.05,
-      Clothing: income * 0.1,
-      Electronics: income * 0.2,
-      Health: income * 0.05,
-      Beauty: income * 0.05,
-      Sports: income * 0.05,
-      Education: income * 0.1,
-      Others: income * 0.05,
+      Food: remainingIncome * 0.1,
+      Transport: remainingIncome * 0.05,
+      Books: remainingIncome * 0.05,
+      Clothing: remainingIncome * 0.1,
+      Electronics: remainingIncome * 0.2,
+      Health: remainingIncome * 0.05,
+      Beauty: remainingIncome * 0.05,
+      Sports: remainingIncome * 0.05,
+      Education: remainingIncome * 0.1,
+      Others: remainingIncome * 0.05,
     };
   };
 
-  const categoryLimits = calculateCategoryLimits(income);
+  const categoryLimits = calculateCategoryLimits(income, emi);
 
   const addExpense = (expense) => {
     setExpenses([...expenses, { ...expense, date: new Date() }]);
@@ -48,7 +50,7 @@ const ExpenseProvider = ({ children }) => {
   };
 
   return (
-    <ExpenseContext.Provider value={{ expenses, addExpense, editExpense, deleteExpense, getRemainingAmount, income, setIncome }}>
+    <ExpenseContext.Provider value={{ expenses, addExpense, editExpense, deleteExpense, getRemainingAmount, income, setIncome, emi, setEmi }}>
       {children}
     </ExpenseContext.Provider>
   );
