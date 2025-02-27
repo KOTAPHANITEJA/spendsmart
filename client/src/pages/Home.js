@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ExpenseContext } from '../context/ExpenseContext';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
+import Chatbot from '../components/chatbot';
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
@@ -45,16 +46,16 @@ const Home = () => {
         label: 'Expenses',
         data: expenseData,
         backgroundColor: [
-          'rgba(255, 98, 132, 0.6)',
-          'rgba(54, 162, 235, 0.6)',
-          'rgba(255, 206, 86, 0.6)',
-          'rgba(75, 192, 192, 0.6)',
-          'rgba(153, 102, 255, 0.6)',
-          'rgba(255, 159, 64, 0.6)',
-          'rgba(199, 199, 199, 0.6)',
-          'rgba(83, 102, 255, 0.6)',
-          'rgba(255, 99, 132, 0.6)',
-          'rgba(54, 162, 235, 0.6)'
+          'rgba(244, 5, 57, 0.97)',
+          'rgb(0, 153, 255)',
+          'rgb(255, 183, 0)',
+          'rgb(0, 255, 255)',
+          'rgb(85, 0, 255)',
+          'rgb(254, 127, 0)',
+          'rgb(255, 255, 255)',
+          'rgb(0, 30, 255)',
+          'rgb(232, 106, 133)',
+          'rgb(25, 73, 105)'
         ],
         borderColor: [
           'rgba(255, 99, 132, 1)',
@@ -165,6 +166,8 @@ const Home = () => {
         <div className="chart-container">
           <Pie data={data} options={options} />
         </div>
+        <h3>Chat with AI</h3>
+        <Chatbot />
       </div>
     </div>
   );

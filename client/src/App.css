@@ -32,6 +32,12 @@ input, select, button {
   padding: 10px;
   font-size: 16px;
   width: 100%; /* Make the input, select, and button elements take the full width of the form */
+  transition: all 0.3s ease; /* Add transition for smooth changes */
+}
+
+input:focus, select:focus, button:hover {
+  border-color: #4caf50; /* Change border color on focus/hover */
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Add shadow on focus/hover */
 }
 
 ul {
@@ -47,6 +53,11 @@ li {
   margin: 5px 0;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease; /* Add transition for smooth changes */
+}
+
+li:hover {
+  transform: scale(1.02); /* Slightly enlarge on hover */
 }
 
 button {
@@ -87,10 +98,15 @@ th, td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
+  transition: background-color 0.3s ease; /* Add transition for smooth changes */
 }
 
 th {
   background-color: #f2f2f2;
+}
+
+tr:hover td {
+  background-color: #f9f9f9; /* Change background color on hover */
 }
 
 .dashboard-container {
@@ -119,6 +135,11 @@ th {
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease; /* Add transition for smooth changes */
+}
+
+.dashboard-content > div:hover {
+  transform: scale(1.02); /* Slightly enlarge on hover */
 }
 
 .expense-list {
@@ -135,6 +156,11 @@ th {
   margin: 5px 0;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease; /* Add transition for smooth changes */
+}
+
+.expense-item:hover {
+  transform: scale(1.02); /* Slightly enlarge on hover */
 }
 
 .over-limit-message {
@@ -143,10 +169,92 @@ th {
   margin-top: 20px;
   padding: 10px;
   border-radius: 5px;
+  transition: transform 0.3s ease; /* Add transition for smooth changes */
+}
+
+.over-limit-message:hover {
+  transform: scale(1.02); /* Slightly enlarge on hover */
 }
 
 .chart-container {
   width: 400px; /* Adjust the width of the chart container */
   height: 400px; /* Adjust the height of the chart container */
   margin: 0 auto; /* Center the chart container */
+  transition: transform 0.3s ease; /* Add transition for smooth changes */
+}
+
+.chart-container:hover {
+  transform: scale(1.02); /* Slightly enlarge on hover */
+}
+
+.chatbot-container {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 20px;
+  transition: transform 0.3s ease; /* Add transition for smooth changes */
+}
+
+.chatbot-container:hover {
+  transform: scale(1.02); /* Slightly enlarge on hover */
+}
+
+.chatbot-messages {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.chatbot-message {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.chatbot-message.user {
+  background-color: #e1f5fe;
+  text-align: right;
+}
+
+.chatbot-message.ai {
+  background-color: #e8f5e9;
+  text-align: left;
+}
+
+.chatbot-message.typing {
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.chatbot-input {
+  display: flex;
+  gap: 10px;
+}
+
+.chatbot-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: all 0.3s ease; /* Add transition for smooth changes */
+}
+
+.chatbot-input input:focus {
+  border-color: #4caf50; /* Change border color on focus */
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Add shadow on focus */
+}
+
+.chatbot-input button {
+  padding: 8px 15px;
+  border: none;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Add transition for smooth changes */
+}
+
+.chatbot-input button:hover {
+  background-color: #45a049; /* Change background color on hover */
 }
