@@ -258,3 +258,22 @@ tr:hover td {
 .chatbot-input button:hover {
   background-color: #45a049; /* Change background color on hover */
 }
+
+.failed-challenge-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #ffdddd;
+  border: 1px solid #f44336;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.failed-challenge-message.hide {
+  opacity: 0;
+  transform: translateX(100%);
+}

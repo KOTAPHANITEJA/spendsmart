@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ExpenseContext } from '../context/ExpenseContext';
 import { Pie } from 'react-chartjs-2';
@@ -11,6 +11,25 @@ const Home = () => {
   const { expenses, getRemainingAmount, income, setIncome, emi, setEmi } = useContext(ExpenseContext);
   const [inputIncome, setInputIncome] = useState(income);
   const [inputEmi, setInputEmi] = useState(emi);
+  const [rewards, setRewards] = useState(0);
+  const [failedChallengeMessage, setFailedChallengeMessage] = useState('');
+
+  const categories = [
+    'Food', 'Transport', 'Books', 'Clothing', 'Electronics', 'Health', 'Beauty', 'Sports', 'Education', 'Others'
+  ];
+
+  const [challenges, setChallenges] = useState([
+    { id: 1, text: 'Spend less on eating out for a week', category: 'Food', completed: false },
+    { id: 2, text: 'Save an extra ₹500 this week on transport', category: 'Transport', completed: false },
+    { id: 3, text: 'Track all book expenses for a month', category: 'Books', completed: false },
+    { id: 4, text: 'Spend less on clothing for a month', category: 'Clothing', completed: false },
+    { id: 5, text: 'Limit electronics purchases this month', category: 'Electronics', completed: false },
+    { id: 6, text: 'Spend less on health-related expenses', category: 'Health', completed: false },
+    { id: 7, text: 'Reduce beauty expenses for a month', category: 'Beauty', completed: false },
+    { id: 8, text: 'Spend less on sports activities', category: 'Sports', completed: false },
+    { id: 9, text: 'Save more on education expenses', category: 'Education', completed: false },
+    { id: 10, text: 'Reduce miscellaneous expenses', category: 'Others', completed: false },
+  ]);
 
   const handleIncomeChange = (e) => {
     setInputIncome(e.target.value);
@@ -26,9 +45,21 @@ const Home = () => {
     setEmi(parseFloat(inputEmi));
   };
 
-  const categories = [
-    'Food', 'Transport', 'Books', 'Clothing', 'Electronics', 'Health', 'Beauty', 'Sports', 'Education', 'Others'
-  ];
+  const handleChallengeCompletion = (id) => {
+    const challenge = challenges.find(challenge => challenge.id === id);
+    const remainingAmount = getRemainingAmount(challenge.category);
+
+    if (remainingAmount < 0) {
+      setFailedChallengeMessage(`Your challenge "${challenge.text}" has failed because you have exceeded the limit for ${challenge.category}.`);
+      setTimeout(() => {
+        setFailedChallengeMessage('');
+      }, 5000); // Hide the message after 5 seconds
+    } else {
+      setChallenges(challenges.map(challenge => 
+        challenge.id === id ? { ...challenge, completed: !challenge.completed } : challenge
+      ));
+    }
+  };
 
   const overLimitCategories = categories.filter(category => getRemainingAmount(category) < 0);
 
@@ -87,6 +118,22 @@ const Home = () => {
     },
   };
 
+  // Calculate rewards based on spending
+  useEffect(() => {
+    const calculateRewards = () => {
+      let totalRewards = 0;
+      categories.forEach(category => {
+        const remainingAmount = getRemainingAmount(category);
+        if (remainingAmount > 0) {
+          totalRewards += remainingAmount * 0.1; // Reward 10% of the remaining amount
+        }
+      });
+      setRewards(totalRewards);
+    };
+
+    calculateRewards();
+  }, [expenses, income, emi, categories, getRemainingAmount]);
+
   return (
     <div>
       <header>
@@ -96,6 +143,7 @@ const Home = () => {
         <h2>Welcome to Spend Smart</h2>
         <p>Manage your expenses efficiently and effectively.</p>
         <p>Total expenses: {expenses.length}</p>
+        <p>Total rewards: ₹{rewards.toFixed(2)}</p>
         <nav>
           <ul>
             <li>
@@ -166,6 +214,25 @@ const Home = () => {
         <div className="chart-container">
           <Pie data={data} options={options} />
         </div>
+        <h3>Daily/Weekly Challenges</h3>
+        <ul>
+          {challenges.map(challenge => (
+            <li key={challenge.id}>
+              {challenge.text}
+              <button
+                onClick={() => handleChallengeCompletion(challenge.id)}
+                className="medium-button"
+              >
+                {challenge.completed ? 'Completed' : 'Mark as Complete'}
+              </button>
+            </li>
+          ))}
+        </ul>
+        {failedChallengeMessage && (
+          <div className="failed-challenge-message">
+            {failedChallengeMessage}
+          </div>
+        )}
         <h3>Chat with AI</h3>
         <Chatbot />
       </div>

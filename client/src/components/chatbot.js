@@ -23,7 +23,7 @@ const Chatbot = () => {
 
     if (input.toLowerCase().includes('save')) {
       responseText = 'Consider saving at least 20% of your income.';
-    } else if (input.toLowerCase().includes('spend', 'expense')) {
+    } else if (input.toLowerCase().includes('spend','expense')) {
       responseText = 'Make sure to track your expenses and stick to your budget.';
     } else if (input.toLowerCase().includes('invest',)) {
       responseText = 'Investing in a diversified portfolio can help grow your wealth.';
