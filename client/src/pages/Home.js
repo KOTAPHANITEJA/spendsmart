@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ExpenseContext } from '../context/ExpenseContext';
+import { AuthContext } from '../context/AuthContext';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
 import Chatbot from '../components/chatbot';
@@ -9,10 +10,12 @@ ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 const Home = () => {
   const { expenses, getRemainingAmount, income, setIncome, emi, setEmi } = useContext(ExpenseContext);
+  const { user, logout } = useContext(AuthContext);
   const [inputIncome, setInputIncome] = useState(income);
   const [inputEmi, setInputEmi] = useState(emi);
   const [rewards, setRewards] = useState(0);
   const [failedChallengeMessage, setFailedChallengeMessage] = useState('');
+  const navigate = useNavigate();
 
   const categories = [
     'Food', 'Transport', 'Books', 'Clothing', 'Electronics', 'Health', 'Beauty', 'Sports', 'Education', 'Others'
@@ -138,6 +141,14 @@ const Home = () => {
     <div>
       <header>
         <h1>Spend Smart</h1>
+        {user ? (
+          <button onClick={logout} className="medium-button logout-button">Logout</button>
+        ) : (
+          <div>
+            <button onClick={() => navigate('/login')} className="medium-button">Login</button>
+            <button onClick={() => navigate('/register')} className="medium-button">Register</button>
+          </div>
+        )}
       </header>
       <div>
         <h2>Welcome to Spend Smart</h2>
